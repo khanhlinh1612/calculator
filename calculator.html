@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head> 
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <div class="frame">
+        <img src="cloud.png"  id="clound">
+        <div class="screen"> 
+            <p id="display_expr">00</p>
+        </div>
+        <button id="reset">AC</button>
+        <div class="number_table">
+            <div class="row">
+                <button class="number">7</button>
+                <button class="number">8</button>
+                <button class="number">9</button>
+                <button class="operand">%</button>
+            </div>
+            <div class="row">
+                <button class="number">4</button>
+                <button class="number">5</button>
+                <button class="number">6</button>
+                <button class="operand">x</button>
+            </div>
+            <div class="row">
+                <button class="number">1</button>
+                <button class="number">2</button>
+                <button class="number">3</button>
+                <button class="operand">-</button>
+            </div>
+            <div class="row">
+                <button class="number">0</button>
+                <button class="operand">.</button>
+                <button id="equal">=</button>
+                <button class="operand">+</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        let  obj = {temp: '' }
+        // Even Handler 
+        function clickHandler(number) {
+            obj.temp = obj.temp + number; 
+            document.getElementById('display_expr').innerHTML = obj.temp;
+        }
+        let element = document.getElementsByClassName('number');
+        
+        for (let i = 0; i < element.length; i++) {
+            element[i].addEventListener('click', function(){clickHandler(element[i].innerHTML);} )
+        }
+
+        function clickHandler_operand(operand) {
+            if (operand == 'x') { operand = '*';}
+            obj.temp = obj.temp + operand; 
+            document.getElementById('display_expr').innerHTML = obj.temp ;
+        }
+        let element1 = document.getElementsByClassName('operand');
+        for (let i = 0; i < element1.length; i++) {
+            element1[i].addEventListener('click', function(){clickHandler_operand(element1[i].innerHTML)} );
+        }
+        let element2 = document.getElementById('equal');
+        function clickHandler_equal(obj){
+            if (obj.temp == '') {
+                obj.temp = ''; 
+                document.getElementById('display_expr').innerHTML = '00';
+                return ; 
+            } 
+            let result = eval(obj.temp); 
+            document.getElementById('display_expr').innerHTML = result;
+            obj.temp = result;           
+        }
+       
+        
+        element2.addEventListener('click', function(){clickHandler_equal(obj)} );
+        function clickHandler_reset(obj){
+            obj.temp = '';
+            document.getElementById('display_expr').innerHTML = '00';
+        }
+        element3 = document.getElementById('reset');
+        element3.addEventListener('click',function(){clickHandler_reset(obj)} );
+    </script>
+</body>
+</html>
+
+
